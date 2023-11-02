@@ -16,3 +16,4 @@ Modules
 5.user Details List
 7.dashboard page  
 
+import sql file to lit database
