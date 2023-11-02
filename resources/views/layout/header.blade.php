@@ -107,7 +107,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="javascript:" class="brand-link" style="text-align: center">
-      <span class="brand-text font-weight-light" style="font-weight:bold !important;font-size:20px;">School</span>
+      <span class="brand-text font-weight-light" style="font-weight:bold !important;font-size:20px;">Interview Task</span>
     </a>
 
     <!-- Sidebar -->
@@ -139,10 +139,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.list')}}" class="nav-link @if(Request::segment(2)=='admin') active @endif">
+            <a href="{{ route('admin.list')}}" class="nav-link @if(Request::segment(2)=='user') active @endif">
               <i class="nav-icon far fa-user"></i>
               <p>
-                Admin
+                User Details
               </p>
             </a>
           </li>

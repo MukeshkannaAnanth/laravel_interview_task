@@ -43,35 +43,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    static public function getAdmin(){
-        $return = User::select('users.*')
-        ->where('is_delete','=',0)
-        ->where('user_type','=',1);
-        if(!empty(Request::get('name'))){
-            $return = $return->where('name','like','%'.Request::get('name').'%');
-        }
 
-        if(!empty(Request::get('email'))){
-        $return = $return->where('email','like','%'.Request::get('email').'%');
-        }
-
-        if(!empty(Request::get('date'))){
-            $return = $return->whereDate('created_at','=',Request::get('date'));
-            }
-        $return = $return->orderBy('id','desc')
-        ->paginate(1);
-
-        return $return;
-    }
-
-    static public function getSingle($id){
-        return User::find($id);
-    }
-    static public function getEmailSingle($email){
-        return User::where('email', '=', $email)->first();
-    }
-
-    static public function getTokenSingle($remember_token){
-        return User::where('remember_token', '=', $remember_token)->first();
-    }
 }

@@ -62,7 +62,7 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="#">I forgot my password</a>
+        <a href="{{ url('register') }}">Register a new membership</a>
       </p>
       {{-- <p class="mb-0">
         <a href="register.html" class="text-center">Register a new membership</a>

@@ -3,73 +3,89 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Userdetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
     public function list(){
-        $data['getRecord'] = User::getAdmin();
-        $data['header_title'] = "Admin List";
-        return view('admin.admin.list', $data);
+        $data['getRecord'] = Userdetails::getUserDetails();
+        $data['header_title'] = "User Detail List";
+        return view('user.userDetails.list', $data);
     }
 
     public function add(){
-        $data['header_title'] = "Add New Admin";
-        return view('admin.admin.add', $data);
+        $data['header_title'] = "Add New User Detail";
+        return view('user.userDetails.add', $data);
     }
 
     public function edit($id){
-        $data['getRecord'] = User::getSingle($id);
-        
-         
+        $data['getRecord'] = Userdetails::getSingle($id);
+
+
         if(!empty($data['getRecord'])){
 
-            $data['header_title'] = "Edit Admin";
-            return view('admin.admin.edit', $data);
+            $data['header_title'] = "Edit User Detail";
+            return view('user.userDetails.edit', $data);
         }else{
            return redirect('NotFound/404');
         }
 
-        
+
     }
 
     public function insert(Request $request){
 
         request()->validate([
-            'email' => 'required|email|unique:users'
+            'name' => 'required',
+            'email' => 'required|email',
+            'mobile' => ['required', 'regex:/^[0-9]{10}$/'],
+            'address' => 'required',
+            'state' => 'required',
+            'city' => 'required',
         ]);
 
 
-        $user = new User();
+        $user = new Userdetails();
         $user->name = trim($request->name);
         $user->email = trim($request->email);
-        $user->password = Hash::make($request->password);
+        $user->mobile = trim($request->mobile);
+        $user->address = trim($request->address);
+        $user->state = trim($request->state);
+        $user->city = trim($request->city);
         $user->save();
-        return redirect('admin/admin/list')->with('success','Admin Successfully Created');
+     return redirect('user/user/list')->with('success','User Details Successfully Created');
     }
 
     public function update($id, Request $request){
 
         request()->validate([
-            'email' => 'required|email|unique:users,email,'.$id
+            'name' => 'required',
+            'email' => 'required|email',
+            'mobile' => ['required', 'regex:/^[0-9]{10}$/'],
+            'address' => 'required',
+            'state' => 'required',
+            'city' => 'required',
         ]);
 
-        $user = User::getSingle($id);
-        $user->name = trim($request->name);
-        $user->email = trim($request->email);
-        if(!empty($request->password)){
-            $user->password = Hash::make($request->password);
-        }
-        $user->save();
-        return redirect('admin/admin/list')->with('success','Admin Successfully Updated');
+
+        $userdetails = Userdetails::getSingle($id);
+        $userdetails->name = trim($request->name);
+        $userdetails->email = trim($request->email);
+        $userdetails->mobile = trim($request->mobile);
+        $userdetails->address = trim($request->address);
+        $userdetails->state = trim($request->state);
+        $userdetails->city = trim($request->city);
+        $userdetails->save();
+        return redirect('user/user/list')->with('success','User Details Successfully Updated');
     }
 
     public function delete($id){
-        $user = User::getSingle($id);
+        $user = Userdetails::getSingle($id);
         $user->is_delete = 1;
         $user->save();
-        return redirect('admin/admin/list')->with('success','Admin Successfully Deletd');
+        return redirect('user/user/list')->with('success','User Details Successfully Deletd');
     }
-    
+
 }

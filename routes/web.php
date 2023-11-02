@@ -16,18 +16,22 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/',[AuthController::class, 'login']);
+Route::get('/register',[AuthController::class, 'register']);
 
 Route::post('login',[AuthController::class, 'AuthLogin'])->name('login_user');
+Route::post('register',[AuthController::class, 'AuthRegister']);
+
+
 Route::get('logout',[AuthController::class, 'AuthLogout'])->name('auth_logout');
 
 Route::get('/admin/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
-Route::group(['middleware' => 'admin'],function(){
-    Route::get('/admin/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
-    Route::get('/admin/admin/list',[AdminController::class,'list'])->name('admin.list');
-    // Route::get('admin/admin/add',[AdminController::class,'add']);
-    // Route::post('admin/admin/add',[AdminController::class,'insert']);
-    // Route::get('admin/admin/edit/{id}',[AdminController::class,'edit']);
-    // Route::post('admin/admin/edit/{id}',[AdminController::class,'update']);
-    // Route::get('admin/admin/delete/{id}',[AdminController::class,'delete']);
+Route::group(['middleware' => 'User_details'],function(){
+    Route::get('/user/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+    Route::get('/user/user/list',[AdminController::class,'list'])->name('admin.list');
+    Route::get('user/user/add',[AdminController::class,'add']);
+     Route::post('user/user/add',[AdminController::class,'insert']);
+     Route::get('user/user/edit/{id}',[AdminController::class,'edit']);
+     Route::post('user/user/edit/{id}',[AdminController::class,'update'])->name('updateuser_details');
+     Route::get('user/user/delete/{id}',[AdminController::class,'delete']);
 
 });
