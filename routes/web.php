@@ -25,7 +25,7 @@ Route::post('register',[AuthController::class, 'AuthRegister']);
 Route::get('logout',[AuthController::class, 'AuthLogout'])->name('auth_logout');
 
 Route::get('/admin/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
-Route::group(['middleware' => 'User_details'],function(){
+Route::group(['middleware' => 'auth.check'],function(){
     Route::get('/user/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
     Route::get('/user/user/list',[AdminController::class,'list'])->name('admin.list');
     Route::get('user/user/add',[AdminController::class,'add']);
