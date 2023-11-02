@@ -14,4 +14,5 @@ Modules
 4.user Details edit
 5.user Details delete
 5.user Details List
-7.dashboard page
+7.dashboard page  
+
